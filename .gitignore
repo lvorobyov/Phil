@@ -1,0 +1,8 @@
+*.doc
+*.pdf
+*.docx
+*.rtf
+*.html
+*.djvu
+*.txt
+!links.txt

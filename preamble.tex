@@ -1,0 +1,145 @@
+\documentclass[a4paper,14pt,toc=flat]{extreport} 
+
+\usepackage{iftex,ifpdf}
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian]{babel}
+\usepackage{hyperref}
+%\usepackage{mathtext}
+\usepackage{newtxmath}
+\usepackage[utf8x]{inputenc}
+\usepackage{tempora} 
+\usepackage{ucs}
+
+\usepackage{indentfirst}
+\usepackage{microtype}
+\linespread{1.3}
+
+\usepackage{geometry}
+\geometry{margin=2.0cm, left=3.0cm, right=1.5cm}
+
+\usepackage[explicit,md,tiny]{titlesec}
+\titleformat{\chapter}[block]{\fillast}{\thechapter}{1em plus .5em}{\MakeUppercase{#1}}
+\titlespacing{\chapter}{0pt}{-20pt}{*2.5}
+\titlespacing{\section}		 {\parindent}{*4}{*1.5}
+\titlespacing{\subsection}	 {\parindent}{*4}{*1.5}
+\titlespacing{\subsubsection}{\parindent}{*4}{*1.5}
+
+\newcommand{\nchapter}[1]{
+	\chapter*{#1}
+	\addcontentsline{toc}{chapter}{#1}
+}
+\providecommand*\introname{\cyr\CYRV\cyrv\cyre\cyrd\cyre\cyrn\cyri\cyre}
+\providecommand*\conclusionname{%
+\cyr\CYRZ\cyra\cyrk\cyrl\cyryu\cyrch\cyre\cyrn\cyri\cyre
+}
+\providecommand*\defsname{%
+{\cyr\CYRS\cyrp\cyri\cyrs\cyro\cyrk\ %
+\cyrs\cyro\cyrk\cyrr\cyra\cyrshch\cyre\cyrn\cyri\cyrishrt\ \cyri\ %
+\cyru\cyrs\cyrl\cyro\cyrv\cyrn\cyrery\cyrh\ %
+\cyro\cyrb\cyro\cyrz\cyrn\cyra\cyrch\cyre\cyrn\cyri\cyrishrt}
+}
+\newcommand{\intro}{\nchapter{\introname}}
+\newcommand{\conclusion}{\nchapter{\conclusionname}}
+\newcommand{\defs}{\nchapter{\defsname}}
+
+\usepackage{enumitem}
+\makeatletter
+     \AddEnumerateCounter{\Asbuk}{\@Asbuk}{М)}
+     \AddEnumerateCounter{\asbuk}{\@asbuk}{м)}
+\makeatother
+\setlist{nolistsep, noitemsep, wide, leftmargin=\parindent}
+\setlist[1]{leftmargin=0pt}
+\renewcommand{\labelitemi}{---}
+\renewcommand{\labelitemii}{---}
+\renewcommand{\labelenumi}{\asbuk{enumi})}
+\renewcommand{\labelenumii}{\arabic{enumii})}
+\usepackage{iitem} 
+
+\providecommand*\appendixname{\cyr\CYRP\cyrr\cyri\cyrl\cyro\cyrzh\cyre\cyrn\cyri\cyre}
+\renewcommand\appendix{%
+  \setcounter{chapter}{0}
+  \setcounter{section}{0}
+  \renewcommand\thechapter{\Asbuk{chapter}}
+  \titleformat{\chapter}[block]{\fillast}{\appendixname~\thechapter\\}{0pt}{##1}
+}
+
+\usepackage{caption} 
+\captionsetup{format=plain,justification=centering,labelsep=endash}
+\captionsetup[table]{justification=raggedleft,singlelinecheck=false}
+
+% Рисунки
+\usepackage{graphicx}
+
+% Многостраничные таблицы
+\usepackage{longtable,tabu,multirow}
+
+% Альбомная ориентация страниц
+\usepackage{lscape}
+
+% Плавающие рисунки "в оборку".
+\usepackage{wrapfig}
+
+% Пакет для вывода текста в несколько колонок
+\usepackage{multicol}
+
+% Общее число страниц
+\usepackage{totpages}
+
+% Общее число рисунов и таблиц
+\usepackage[figure,table]{totalcount}
+
+% Плоское содержание
+% \usepackage[toc=flat]{tocbasic}
+
+% Пакет для листингов прогармм
+\usepackage{minted}
+\setminted{numbers=left, fontsize=\small, breaklines, autogobble, baselinestretch=1.1, tabsize=4, outencoding=utf8}
+
+% Псевдокод
+%\usepackage[algochapter,figure,lined]{algorithm2e}
+%\SetAlgorithmName{Алгоритм}{алгоритм}{Список алгоритмов}
+
+% Библитека для рисования фигур
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+
+\makeatletter
+\patchcmd\tabu@startpboxmeasure
+  {\aftergroup\tabu@endpboxmeasure}
+  {\aftergroup\tabu@endpboxmeasure
+   \color@begingroup
+  }{\typeout{tabu patched}}{\typeout{tabu patch failed!}}
+
+\patchcmd\tabu@LT@startpbox
+ {\bgroup}{\bgroup\color@begingroup}
+ {\typeout{tabu patched}}{\typeout{tabu patch failed!}}  
+\makeatother
+
+\makeatletter
+\newcommand\tabfill[1]{%
+        \dimen@\linewidth
+        \advance\dimen@\@totalleftmargin
+        \advance\dimen@-\dimen\@curtab
+        \parbox[t]\dimen@{#1\ifhmode\strut\fi}%
+}
+\makeatother
+
+\makeatletter
+\def\keywords#1{\gdef\@keywords{#1}}\keywords{}
+\renewenvironment{abstract}{
+  \chapter*{\abstractname}
+}{
+  \par\vfil\null%
+
+  \hyphenpenalty=10000
+
+  \sloppy
+  \MakeUppercase{\@keywords}%
+  \tolerance=200
+
+  \hyphenpenalty=50
+
+  \clearpage
+}
+\makeatother
+

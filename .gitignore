@@ -6,3 +6,12 @@
 *.djvu
 *.txt
 !links.txt
+*.tex
+!preamble.tex
+*.bib
+*.log
+*.blg
+*.out
+*.toc
+*.fmt
+*.21
